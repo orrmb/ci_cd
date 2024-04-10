@@ -66,6 +66,7 @@ class Bot:
         logger.info(f'Incoming message: {msg}')
         self.send_text(msg['chat']['id'], f'Your original message: {msg["text"]}')
 
+
 class ObjectDetectionBot(Bot):
     def handle_message(self, msg):
         logger.info(f'Incoming message: {msg}')
@@ -77,10 +78,10 @@ class ObjectDetectionBot(Bot):
             img_name = self.download_user_photo(msg).split('/')[1]
             """upload the photo to S3"""
             s3 = boto3.client('s3', region_name='us-west-2')
-            s3.upload_file(photo_path, 'prod-s3-orb', f'images/{img_name}')
+            s3.upload_file(photo_path, 'awsproj-orb', f'images/{img_name}')
             """send job to sqs"""
             sqs = boto3.client('sqs', region_name='us-west-2')
-            queue_url = 'https://sqs.us-west-2.amazonaws.com/352708296901/prod-sqs-orb'
+            queue_url = 'https://sqs.us-west-2.amazonaws.com/352708296901/sqs-aws-project'
             message = {'chat_id': msg['chat']['id'], 'img_name': img_name}
             response = sqs.send_message(
                 QueueUrl=queue_url,
@@ -109,5 +110,6 @@ class ObjectDetectionBot(Bot):
             self.telegram_bot_client.send_message(msg['chat']['id'],
                                                   text='Sorry but I dont unsderstand what that means " {} ".\n Try using these command for help: /help'.format(
                                                       msg["text"]))
+
 
 #curl -F "url=https://orb-k8s-proj.devops-int-college.com:8443/<TELEGRAM_TOKEN>/" -F "certificate=@YOURPUBLIC.pem" https://api.telegram.org/bot<TELEGRAM_TOKEN>/setWebhook

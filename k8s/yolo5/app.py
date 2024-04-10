@@ -7,10 +7,7 @@ from loguru import logger
 import json
 import os
 import boto3
-import urllib3
 
-'''disable error unsecure connection'''
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 images_bucket = os.environ['BUCKET_NAME']
 queue_name = os.environ['SQS_QUEUE_NAME']
 
@@ -18,6 +15,7 @@ sqs_client = boto3.client('sqs', region_name='us-west-2')
 
 with open("data/coco128.yaml", "r") as stream:
     names = yaml.safe_load(stream)['names']
+
 
 def consume():
     while True:
@@ -41,6 +39,8 @@ def consume():
             s3 = boto3.client('s3', region_name='us-west-2')
             s3.download_file(images_bucket, f'images/{img_name}', original_img_path)
             logger.info(f'prediction: {prediction_id}/{original_img_path}. Download img completed')
+
+
 
             # Predicts the objects in the image
             run(
@@ -87,16 +87,17 @@ def consume():
                 logger.info(type(prediction_summary))
                 """store the prediction_summary in a DynamoDB table"""
                 try:
-                    client = boto3.resource('dynamodb', region_name='us-west-2')
-                    response = client.Table('prod-dynamo-orb')
+                    client = boto3.resource('dynamodb', region_name='us-west-2' )
+                    response = client.Table('db-awsproj-orb')
                     response.put_item(Item=prediction_summary)
-                    logger.info('Put prediction_summary in dynamo', prediction_summary)
+                    logger.info('Put prediction_summary in dynamo',prediction_summary)
                 except:
                     raise EOFError
 
             """ perform a GET request to Polybot to `/results` endpoint in app.py """
 
-            Yolo2bot = requests.get(url=f'https://orb-polybot-prod.devops-int-college.com:8443/results/?predictionId={prediction_id}', verify=False)
+            Yolo2bot = requests.get(url=f'https://orb-k8s-proj.devops-int-college.com:8443/results/?predictionId={prediction_id}', verify=False)
+
 
             # Delete the message from the queue as the job is considered as DONE
             sqs_client.delete_message(QueueUrl=queue_name, ReceiptHandle=receipt_handle)

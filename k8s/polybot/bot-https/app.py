@@ -13,16 +13,11 @@ import signal
 
 app = flask.Flask(__name__)
 
-TELEGRAM_APP_URL = 'https://orb-polybot-prod.devops-int-college.com:8443'
+TELEGRAM_APP_URL = 'https://orb-k8s-proj.devops-int-college.com:8443'
 TABLE_NAME = os.environ['TABLE_NAME']
-BUCKET_NAME = os.environ['BUCKET_NAME']
 
-s3 = boto3.client('s3', region_name='us-west-2')
-s3.download_file(BUCKET_NAME, 'certificate/YOURPUBLIC-prod.pem', './certificate/YOURPUBLIC-prod.pem')
-s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-prod.key', './certificate/YOURPRIVATE-prod.key')
-
-WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-prod.pem'
-WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-prod.key'
+WEBHOOK_SSL_CERT = './cerrificate/YOURPUBLIC.pem'
+WEBHOOK_SSL_PRIV = './cerrificate/YOURPRIVATE.key'
 
 secret_name = "awspro/bot/token"
 region_name = "us-west-2"
@@ -32,7 +27,6 @@ client = session.client(
     service_name='secretsmanager',
     region_name=region_name,
 )
-
 
 try:
     get_secret_value_response = client.get_secret_value(
@@ -54,6 +48,7 @@ else:
         secret = get_secret_value_response['SecretString']
     else:
         secret = get_secret_value_response['SecretBinary']
+
 
 """load TELEGRAM_TOKEN value from Secret Manager"""
 TELEGRAM_TOKEN = json.loads(secret)['TELEGRAM_TOKEN']
@@ -114,6 +109,7 @@ def sigterm_handler(signum, frame):
     bot.send_message(chat_id=chat_id, text=message)
     exit(0)
 signal.signal(signal.SIGTERM, sigterm_handler)
+
 
 
 if __name__ == "__main__":
