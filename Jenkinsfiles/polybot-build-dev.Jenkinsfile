@@ -28,11 +28,14 @@ pipeline {
             steps {
                 script {
                     stage('Build Docker Image') {
+                        echo "Start build image $IMAGE_NAME"
                         sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                        echo "The image $IMAGE_NAME built"
                     }
 
                     stage('Push Docker Image to Docker Hub') {
                         sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                        echo "Push the $IMAGE_NAME"
                     }
 
                     stage('Clean Workspace') {
