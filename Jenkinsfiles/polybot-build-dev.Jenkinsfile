@@ -26,18 +26,16 @@ pipeline {
                 changeset "k8s/polybot/*"
             }
             steps {
-                stage('Build Docker Image') {
-                    steps {
+                script {
+                    stage('Build Docker Image') {
                         sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                     }
-                }
-                stage('Push Docker Image to Docker Hub') {
-                    steps {
+
+                    stage('Push Docker Image to Docker Hub') {
                         sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
                     }
-                }
-                stage('Clean Workspace') {
-                    steps {
+
+                    stage('Clean Workspace') {
                         cleanWs()
                     }
                 }
