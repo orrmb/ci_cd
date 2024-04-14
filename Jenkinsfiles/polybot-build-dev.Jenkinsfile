@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     def changes = changeset(['**/k8s/polybot/**'])
-                    if (changes.isEmpty()) {
+                    if (changes.size() == 0 ) {
                         scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
                         echo "No changes detected in k8s/polybot directory."
                         currentBuild.result = 'SUCCESS'
@@ -46,9 +46,6 @@ pipeline {
             sh 'docker image prune -a --force --filter "until=1h"'
         }
     }
-
-
-
     options {
         timestamps()
     }
