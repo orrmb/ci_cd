@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'orrmb/jenkinsagent'
-            args  '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -25,13 +25,12 @@ pipeline {
                 changeset "k8s/polybot/**"
             }
             steps {
-                    echo "Start build image $IMAGE_NAME"
-                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
-                    echo "The image $IMAGE_NAME built"
-                    sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
-                    echo "Push the $IMAGE_NAME"
-                    cleanWs()
-                }
+                echo "Starting to build image $IMAGE_NAME"
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
+                echo "The image $IMAGE_NAME has been built"
+                sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                echo "Pushed the image $IMAGE_NAME"
+                cleanWs()
             }
         }
     }
@@ -41,6 +40,7 @@ pipeline {
             sh 'docker image prune -a --force --filter "until=1h"'
         }
     }
+
     options {
         timestamps()
     }
