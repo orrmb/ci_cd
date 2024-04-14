@@ -25,20 +25,12 @@ pipeline {
                 changeset "k8s/polybot/**"
             }
             steps {
-                script {
-                    stage('Build Docker Image') {
-                        echo "Start build image $IMAGE_NAME"
-                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
-                        echo "The image $IMAGE_NAME built"
-                    }
-
-                    stage('Push Docker Image to Docker Hub') {
-                        sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
-                        echo "Push the $IMAGE_NAME"
-                    }
-
-                    stage('Clean Workspace') {
-                        cleanWs()
+                    echo "Start build image $IMAGE_NAME"
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
+                    echo "The image $IMAGE_NAME built"
+                    sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                    echo "Push the $IMAGE_NAME"
+                    cleanWs()
                     }
                 }
             }
