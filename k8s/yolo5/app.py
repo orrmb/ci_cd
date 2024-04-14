@@ -42,6 +42,7 @@ def consume():
 
 
 
+
             # Predicts the objects in the image
             run(
                 weights='yolov5s.pt',

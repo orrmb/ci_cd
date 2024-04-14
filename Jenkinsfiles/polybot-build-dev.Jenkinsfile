@@ -22,13 +22,13 @@ pipeline {
 
         stage('Check Change') {
             when {
-                changeset "k8s/polybot/*"
+                changeset "k8s/polybot/**"
             }
             steps {
                 script {
                     stage('Build Docker Image') {
                         echo "Start build image $IMAGE_NAME"
-                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
                         echo "The image $IMAGE_NAME built"
                     }
 
