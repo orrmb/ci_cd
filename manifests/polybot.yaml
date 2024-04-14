@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: polybot-dep
-  namespace: prod
   labels:
     app: polybot
 spec:
@@ -16,12 +15,10 @@ spec:
     spec:
       containers:
       - name: bot-app
-        image: orrmb/bot-app-prod:cicd-0.0.2
+        image: orrmb/bot-app:k8s.6
         env:
           - name: TABLE_NAME
-            value: 'prod-dynamo-orb'
-          - name: BUCKET_NAME
-            value: 'prod-s3-orb'
+            value: 'db-awsproj-orb'
         resources:
           requests:
             cpu: 300m
@@ -45,7 +42,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: srv-polybot
-  namespace: prod
 spec:
   selector:
     app:  polybot
@@ -55,3 +51,5 @@ spec:
       targetPort: 8443
 
 
+#kubectl apply -f polybot.yaml --namespace=bot-yolo-app
+#orb-bot-k8s.devops-int-college.com
