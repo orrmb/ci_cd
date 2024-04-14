@@ -21,16 +21,20 @@ pipeline {
         }
 
         stage('Check Change') {
-            when {
-                changeset "k8s/polybot/**"
-            }
             steps {
-                echo "Starting to build image $IMAGE_NAME"
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
-                echo "The image $IMAGE_NAME has been built"
-                sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
-                echo "Pushed the image $IMAGE_NAME"
-                cleanWs()
+                script {
+                    if (changeset "k8s/polybot/**") {
+                        echo "Starting to build image $IMAGE_NAME"
+                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
+                        echo "The image $IMAGE_NAME has been built"
+                        sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                        echo "Pushed the image $IMAGE_NAME"
+                        cleanWs()
+                    } else {
+                        currentBuild.result = 'SUCCESS'
+                        error("Skipping build as no changes detected in k8s/polybot directory.")
+                    }
+                }
             }
         }
     }
