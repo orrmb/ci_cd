@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polybot-dep
+  labels:
+    app: polybot
+spec:
+  selector:
+    matchLabels:
+      app: polybot
+  template:
+    metadata:
+        labels:
+          app: polybot
+    spec:
+      containers:
+      - name: bot-app
+        image: orrmb/bot-app:k8s.6
+        env:
+          - name: TABLE_NAME
+            value: 'dev-dynamo-orb'
+        resources:
+          requests:
+            cpu: 300m
+          limits:
+            cpu: 300m
+        livenessProbe:
+          initialDelaySeconds: 10
+          httpGet:
+            path: "/health"
+            port: 8443
+        readinessProbe:
+          initialDelaySeconds: 10
+          httpGet:
+            path: "/ready"
+            port: 8443
+      terminationGracePeriodSeconds: 30
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-polybot
+spec:
+  selector:
+    app:  polybot
+  ports:
+    - protocol: TCP
+      port: 8443
+      targetPort: 8443
+
+
+#kubectl apply -f polybot.yaml --namespace=bot-yolo-app
+#orb-bot-k8s.devops-int-college.com
