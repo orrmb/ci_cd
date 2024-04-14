@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolobot-dep
+  labels:
+    app: yolobot-app
+spec:
+  selector:
+    matchLabels:
+      app: yolobot-app
+  template:
+    metadata:
+        labels:
+          app: yolobot-app
+    spec:
+      containers:
+      - name: yolo-app
+        image: orrmb/yolo-app:k8s.2
+        env:
+          - name: BUCKET_NAME
+            value: 'awsproj-orb'
+          - name: SQS_QUEUE_NAME
+            value: 'sqs-aws-project'
+        resources:
+          requests:
+            cpu: 400m
+          limits:
+            cpu: 400m
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: autoscale-yolobot-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: yolobot-dep
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
+
+  #kubectl apply -f yolobot.yaml --namespace=bot-yolo-app
