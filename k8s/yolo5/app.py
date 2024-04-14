@@ -41,8 +41,6 @@ def consume():
             logger.info(f'prediction: {prediction_id}/{original_img_path}. Download img completed')
 
 
-
-
             # Predicts the objects in the image
             run(
                 weights='yolov5s.pt',
