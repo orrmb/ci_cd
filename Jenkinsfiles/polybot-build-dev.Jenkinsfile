@@ -23,22 +23,19 @@ pipeline {
         stage('Check Change') {
             steps {
                 script {
-                    try {
-                        if (changeset includes '**/k8s/polybot/**') {
-                            echo "Starting to build image $IMAGE_NAME"
-                            sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
-                            echo "The image $IMAGE_NAME has been built"
-                            sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
-                            echo "Pushed the image $IMAGE_NAME"
-                            cleanWs()
-                        } else {
-                            error("Skipping build as no changes detected in k8s/polybot directory.")
-                        }
-                    } catch (e) {
-                        echo "Caught exception: ${e.message}"
+                    def changes = changeset(['**/k8s/polybot/**'])
+                    if (changes.isEmpty()) {
+                        scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
+                        echo "No changes detected in k8s/polybot directory."
                         currentBuild.result = 'SUCCESS'
-                        echo "Build skipped"
+                        return
                     }
+                    echo "Starting to build image $IMAGE_NAME"
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
+                    echo "The image $IMAGE_NAME has been built"
+                    sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                    echo "Pushed the image $IMAGE_NAME"
+                    cleanWs()
                 }
             }
         }
@@ -47,7 +44,6 @@ pipeline {
     post {
         always {
             sh 'docker image prune -a --force --filter "until=1h"'
-        }
     }
 
     options {
