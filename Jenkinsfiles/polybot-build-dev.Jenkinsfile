@@ -32,11 +32,6 @@ pipeline {
                 echo "Pushed the image $IMAGE_NAME"
                 cleanWs()
             }
-            stage('Checkout') {
-                steps {
-                    scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
-               }
-            }
         }
     }
 
