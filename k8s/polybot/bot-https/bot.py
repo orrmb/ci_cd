@@ -81,7 +81,7 @@ class ObjectDetectionBot(Bot):
             s3.upload_file(photo_path, 'dev-s3-orb', f'images/{img_name}')
             """send job to sqs"""
             sqs = boto3.client('sqs', region_name='us-west-2')
-            queue_url = 'https://sqs.us-west-2.amazonaws.com/352708296901/sqs-aws-project'
+            queue_url = 'https://sqs.us-west-2.amazonaws.com/352708296901/dev-sqs-orb'
             message = {'chat_id': msg['chat']['id'], 'img_name': img_name}
             response = sqs.send_message(
                 QueueUrl=queue_url,
