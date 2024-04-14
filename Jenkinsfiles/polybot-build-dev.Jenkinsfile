@@ -31,7 +31,6 @@ pipeline {
                     sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
                     echo "Push the $IMAGE_NAME"
                     cleanWs()
-                    }
                 }
             }
         }
