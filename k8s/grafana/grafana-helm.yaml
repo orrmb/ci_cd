@@ -1,0 +1,23 @@
+#grafana.ini:
+#  server:
+#    domain: orb-k8s-proj.devops-int-college.com
+#    root_url: "%(protocol)s://%(domain)s/grafana"
+#    serve_from_sub_path: true
+#ingress:
+#  enabled: true
+#  ingressClassName: nginx
+#  hosts:
+#    - "orb-k8s-proj.devops-int-college.com"
+#  path: "/grafana"
+
+
+persistence:
+  storageClassName: aws-ebs-k8
+  enabled: true
+  size: 2Gi
+
+env:
+  GF_DASHBOARDS_VERSIONS_TO_KEEP: 10
+
+
+
