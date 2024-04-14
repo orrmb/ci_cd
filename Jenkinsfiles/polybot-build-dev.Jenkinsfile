@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        if (changeset "**/k8s/polybot/**") {
+                        if (changeset includes '**/k8s/polybot/**') {
                             echo "Starting to build image $IMAGE_NAME"
                             sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
                             echo "The image $IMAGE_NAME has been built"
@@ -48,6 +48,7 @@ pipeline {
         always {
             sh 'docker image prune -a --force --filter "until=1h"'
         }
+    }
 
     options {
         timestamps()
