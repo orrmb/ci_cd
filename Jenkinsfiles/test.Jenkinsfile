@@ -16,7 +16,8 @@ pipeline {
                     } else {
                         echo "Version not found"
                     }
-                    echo "GIT_COMMIT: ${env.GIT_COMMIT1}"
+                    env.VERSION=${version[0][1]}
+                    echo $VERSION
                 }
             }
         }
