@@ -16,8 +16,8 @@ pipeline {
                     } else {
                         echo "Version not found"
                     }
-                    env.VERSION="${version[1][1]}"
-                    echo "${VERSION}"
+                    env.VERSION = "${version[0][1]}"
+                    echo "VERSION: ${env.VERSION}"
                 }
             }
         }
