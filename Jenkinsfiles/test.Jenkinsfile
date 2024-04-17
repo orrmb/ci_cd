@@ -10,12 +10,13 @@ pipeline {
             steps {
                 script {
                     commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
-                    String commitMsg = ""
-                    List commitMsgPre = commit.split(" ")
-                    for (int i = 1; i < commitMsgPre.size(); i++) {
-                        commitMsg=commit.substring(commit.indexOf(' ')).trim()
-                    print(commitMsg.split(" "))
+                    def version = commit =~ /version (\d+\.\d+\.\d+)/
+                    if (version) {
+                        echo "Version: ${version[0][1]}"
+                    } else {
+                        echo "Version not found"
                     }
+                    echo "GIT_COMMIT: ${env.GIT_COMMIT1}"
                 }
             }
         }
