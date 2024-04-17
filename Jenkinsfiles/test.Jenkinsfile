@@ -14,9 +14,8 @@ pipeline {
                     List commitMsgPre = commit.split(" ")
                     for (int i = 1; i < commitMsgPre.size(); i++) {
                         commitMsg += commit.substring(commit.indexOf(' ')).trim()
-                        print(commitMsg)
+                    print(commitMsg)
                     }
-                    echo "GIT_COMMIT: ${env.GIT_COMMIT1}"
                 }
             }
         }
