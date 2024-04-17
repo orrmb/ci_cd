@@ -17,7 +17,7 @@ pipeline {
                         echo "Version not found"
                     }
                     env.VERSION="${version[0][1]}"
-                    echo $VERSION
+                    echo "${VERSION}"
                 }
             }
         }
