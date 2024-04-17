@@ -25,6 +25,7 @@ pipeline {
             }
             steps {
                 script {
+                    sh "git config --global --add safe.directory /var/lib/jenkins/workspace/dev/poly_dev"
                     commit = sh(returnStdout: true, script: 'git log -1 --oneline /var/lib/jenkins/workspace/dev/poly_dev').trim()
                     def version = commit =~ /polybot version (\d+\.\d+\.\d+)/
                     if (version) {
@@ -35,7 +36,6 @@ pipeline {
                         scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
                     }
                 }
-                sh "git config --global --add safe.directory /var/lib/jenkins/workspace/dev/poly_dev"
                 echo "Starting to build image $IMAGE_NAME"
                 sh "docker build -t ${IMAGE_NAME}:cicd-${VERSION} . -f k8s/polybot/bot-https/Dockerfile"
                 echo "The image $IMAGE_NAME has been built"
