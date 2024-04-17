@@ -5,6 +5,9 @@ stages {
         }
     }
     Stage('print'){
-        echo $GIT_COMMIT
+        steps{
+            echo $GIT_COMMIT
+        }
+
     }
 }
