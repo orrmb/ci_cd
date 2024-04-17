@@ -13,7 +13,7 @@ pipeline {
                     def version = commit =~ /polybot version (\d+\.\d+\.\d+)/
                     if (version) {
                         env.VERSION = version[0][1]
-                        echo "${env.VERSION}"
+                        echo "${VERSION}"
                     } else {
                         echo "Version not found"
                     }
