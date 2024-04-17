@@ -33,7 +33,6 @@ pipeline {
                     } else {
                         echo "Version not found"
                         scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
-
                     }
                 }
                 echo "Starting to build image $IMAGE_NAME"

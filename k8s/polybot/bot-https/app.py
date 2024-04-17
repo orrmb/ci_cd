@@ -49,7 +49,6 @@ else:
     else:
         secret = get_secret_value_response['SecretBinary']
 
-
 """load TELEGRAM_TOKEN value from Secret Manager"""
 TELEGRAM_TOKEN = json.loads(secret)['TELEGRAM_TOKEN']
 
