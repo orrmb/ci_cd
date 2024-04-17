@@ -14,7 +14,7 @@ pipeline {
                     List commitMsgPre = commit.split(" ")
                     for (int i = 1; i < commitMsgPre.size(); i++) {
                         commitMsg=commit.substring(commit.indexOf(' ')).trim()
-                    print(commitMsg.split(" ")
+                    print(commitMsg.split(" "))
                     }
                 }
             }
