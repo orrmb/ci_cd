@@ -1,13 +1,18 @@
-stages {
-    Stage('Build') {
-        environmnet {
-            GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            environment {
+                GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+            }
+            steps {
+                // Your build steps here
+            }
         }
-    }
-    Stage('print'){
-        steps{
-            echo $GIT_COMMIT
+        stage('Print') {
+            steps {
+                echo "GIT_COMMIT: ${GIT_COMMIT}"
+            }
         }
-
     }
 }
