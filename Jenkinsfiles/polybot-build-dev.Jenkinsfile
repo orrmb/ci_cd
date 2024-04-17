@@ -25,7 +25,7 @@ pipeline {
             }
             steps {
                 script {
-                    commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
+                    commit = sh(returnStdout: true, script: 'git log -1 --oneline /var/lib/jenkins/workspace/dev/poly_dev').trim()
                     def version = commit =~ /polybot version (\d+\.\d+\.\d+)/
                     if (version) {
                         env.VERSION = version[0][1]
