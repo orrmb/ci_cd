@@ -61,7 +61,6 @@ class Bot:
             InputFile(img_path)
         )
 
-
     def handle_message(self, msg):
         """Bot Main message handler"""
         logger.info(f'Incoming message: {msg}')
