@@ -10,10 +10,10 @@ pipeline {
             steps {
                 script {
                     commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
-                    def version = commit = /polybot version (\d+\.\d+\.\d+)/
+                    def version = commit =~ /polybot version (\d+\.\d+\.\d+)/
                     if (version) {
-                        env.VERSION = "${version[0][1]}"
-                        echo "${VERSION}"
+                        env.VERSION = version[0][1]
+                        echo "${env.VERSION}"
                     } else {
                         echo "Version not found"
                     }
