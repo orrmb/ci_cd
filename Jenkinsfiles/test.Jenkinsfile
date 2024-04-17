@@ -12,7 +12,7 @@ pipeline {
                     commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
                     def version = commit =~ /polybot version (\d+\.\d+\.\d+)/
                     if (version) {
-                        echo "Version: ${version[0][1]}"
+                        echo "Version: ${version[1][2]}"
                     } else {
                         echo "Version not found"
                     }
