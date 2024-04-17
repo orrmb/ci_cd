@@ -8,7 +8,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'orrmb/bot-app-dev'
-        IMAGE_TAG  = "cicd-0.0.${BUILD_NUMBER}"
     }
 
     stages {
@@ -25,10 +24,22 @@ pipeline {
                 changeset "**/k8s/polybot/**"
             }
             steps {
+                script {
+                    commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
+                    def version = commit =~ /polybot version (\d+\.\d+\.\d+)/
+                    if (version) {
+                        env.VERSION = version[0][1]
+                        echo "${VERSION}"
+                    } else {
+                        echo "Version not found"
+                        scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
+
+                    }
+                }
                 echo "Starting to build image $IMAGE_NAME"
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} . -f k8s/polybot/bot-https/Dockerfile"
+                sh "docker build -t ${IMAGE_NAME}:cicd-${VERSION} . -f k8s/polybot/bot-https/Dockerfile"
                 echo "The image $IMAGE_NAME has been built"
-                sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                sh "docker push ${IMAGE_NAME}:cicd-${VERSION}"
                 echo "Pushed the image $IMAGE_NAME"
                 cleanWs()
             }
