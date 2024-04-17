@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Print') {
             steps {
-                echo "GIT_COMMIT: ${GIT_COMMIT1}"
+                echo "GIT_COMMIT: ${GIT_COMMIT1}.spilt(" ")"
             }
         }
     }
