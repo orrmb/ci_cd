@@ -31,15 +31,16 @@ pipeline {
                     if (version) {
                         env.VERSION = version[0][1]
                         echo "${VERSION}"
+                        env.IMAGE_NAME="${IMAGE_NAME}:cicd-${VERSION}"
                     } else {
                         echo "Version not found"
                         scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
                     }
                 }
                 echo "Starting to build image $IMAGE_NAME"
-                sh "docker build -t ${IMAGE_NAME}:cicd-${VERSION} . -f k8s/polybot/bot-https/Dockerfile"
+                sh "docker build -t ${IMAGE_NAME} . -f k8s/polybot/bot-https/Dockerfile"
                 echo "The image $IMAGE_NAME has been built"
-                sh "docker push ${IMAGE_NAME}:cicd-${VERSION}"
+                sh "docker push ${IMAGE_NAME}"
                 echo "Pushed the image $IMAGE_NAME"
                 cleanWs()
             }
