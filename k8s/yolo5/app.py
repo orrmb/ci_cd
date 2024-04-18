@@ -97,7 +97,6 @@ def consume():
 
             Yolo2bot = requests.get(url=f'https://orb-cicd-dev.devops-int-college.com:8443/results/?predictionId={prediction_id}', verify=False)
 
-
             # Delete the message from the queue as the job is considered as DONE
             sqs_client.delete_message(QueueUrl=queue_name, ReceiptHandle=receipt_handle)
 
