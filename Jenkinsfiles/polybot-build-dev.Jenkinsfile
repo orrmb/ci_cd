@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     sh "git config --global --add safe.directory /var/lib/jenkins/workspace/dev/poly_dev"
-                    commit = sh(returnStdout: true, script: 'git log -1 --oneline /var/lib/jenkins/workspace/dev/poly_dev').trim()
+                    commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
                     def version = commit =~ /polybot version (\d+\.\d+\.\d+)/
                     if (version) {
                         env.VERSION = version[0][1]
