@@ -21,6 +21,8 @@ WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-dev.key'
 
 secret_name = "dev/bot/token"
 region_name = "us-west-2"
+secret = ''
+TELEGRAM_TOKEN = ''
 
 session = boto3.session.Session()
 client = session.client(
@@ -46,10 +48,10 @@ except ClientError as e:
 else:
     if 'SecretString' in get_secret_value_response:
         secret = get_secret_value_response['SecretString']
+
     else:
         secret = get_secret_value_response['SecretBinary']
 
-"""load TELEGRAM_TOKEN value from Secret Manager"""
 TELEGRAM_TOKEN = json.loads(secret)['TELEGRAM_TOKEN']
 
 @app.route('/', methods=['GET'])
