@@ -48,7 +48,7 @@ pipeline {
         stage('Trigger Deploy') {
             steps {
                 build job: 'cd-dev', wait: false, parameters: [
-                string(name: 'POLYBOT_IMAGE', value: "${IMAGE_NAME}")
+                string(name: 'IMAGE_NAME', value: "${IMAGE_NAME}")
         ]
     }
 }

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: bot-app
-        image: orrmb/bot-app:k8s.6
+        image: '${POLYBOT_IMAGE}'
         env:
           - name: TABLE_NAME
             value: 'db-awsproj-orb'
