@@ -37,7 +37,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: yolobot-dep-dev
+    name: yolobot-dep
   minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 50
