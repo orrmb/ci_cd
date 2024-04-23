@@ -5,11 +5,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - orb-k8s-proj.devops-int-college.com
+        - orb-k8s-prod.devops-int-college.com
       secretName: tls-secret
   ingressClassName: nginx
   rules:
-    - host: orb-k8s-proj.devops-int-college.com
+    - host: orb-k8s-prod.devops-int-college.com
       http:
         paths:
           - path: /
