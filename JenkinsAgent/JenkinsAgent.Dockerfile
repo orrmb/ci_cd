@@ -8,6 +8,7 @@ RUN apt-get install -y unzip \
 #Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 RUN sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+RUN 
 
 # this is an example demostrating how to install a tool on a some Docker image, then copy its artifacts to another image
 RUN mkdir /snyk && cd /snyk \
