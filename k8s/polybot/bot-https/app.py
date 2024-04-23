@@ -16,8 +16,8 @@ app = flask.Flask(__name__)
 TELEGRAM_APP_URL = 'https://orb-polybot-dev.devops-int-college.com:8443'
 TABLE_NAME = os.environ['TABLE_NAME']
 
-WEBHOOK_SSL_CERT = './cerificate/YOURPUBLIC-dev.pem'
-WEBHOOK_SSL_PRIV = './cerificate/YOURPRIVATE-dev.key'
+WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-dev.pem'
+WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-dev.key'
 
 secret_name = "dev/bot/token"
 region_name = "us-west-2"
