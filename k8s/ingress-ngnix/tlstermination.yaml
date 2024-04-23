@@ -7,7 +7,7 @@ spec:
   tls:
     - hosts:
         - orb-polybot-dev.devops-int-college.com
-      secretName: tls-secret
+      secretName: tls-secret-dev
   ingressClassName: nginx
   rules:
     - host: orb-polybot-dev.devops-int-college.com
@@ -26,6 +26,6 @@ spec:
 #kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/aws/deploy.yaml
 
 
-#openssl req -newkey rsa:2048 -sha256 -nodes -keyout YOURPRIVATE.key -x509 -days 365 -out YOURPUBLIC.pem -subj "Company/CN=orb-k8s-proj.devops-int-college.com"
-#kubectl create secret tls tls-secret --key YOURPRIVATE.key --cert YOURPUBLIC.pem
-#openssl req -newkey rsa:2048 -sha256 -nodes -keyout YOURPRIVATE.key -x509 -days 365 -out YOURPUBLIC.pem -subj "/C=US/ST=New York/L=Brooklyn/O=. Company/CN=orb-k8s-proj.devops-int-college.com"
+#openssl req -newkey rsa:2048 -sha256 -nodes -keyout YOURPRIVATE-dev.key -x509 -days 365 -out YOURPUBLIC-dev.pem -subj "Company/CN=orb-polybot-dev.devops-int-college.com"
+#kubectl create  -n dev secret tls tls-secret-dev --key YOURPRIVATE-dev.key --cert YOURPUBLIC-dev.pem
+#openssl req -newkey rsa:2048 -sha256 -nodes -keyout YOURPRIVATE-dev.key -x509 -days 365 -out YOURPUBLIC-dev.pem -subj "/C=. /ST=. /L=./O=. Company/CN=orb-polybot-dev.devops-int-college.com"
