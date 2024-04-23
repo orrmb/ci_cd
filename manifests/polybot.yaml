@@ -19,7 +19,7 @@ spec:
         image: orrmb/bot-app-dev:cicd-0.0.1
         env:
           - name: TABLE_NAME
-            value: 'db-awsproj-orb'
+            value: 'dev-dynamo-orb'
         resources:
           requests:
             cpu: 300m
