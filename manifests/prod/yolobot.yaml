@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yolobot-dep
+  name: yolobot-app
   namespace: prod
   labels:
     app: yolobot-app
@@ -37,7 +37,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: yolobot-dep
+    name: yolobot-app
   minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 50
