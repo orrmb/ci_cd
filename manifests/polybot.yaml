@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: bot-app
-        image: '${POLYBOT_IMAGE}'
+        image: orrmb/bot-app-dev:cicd-0.0.1
         env:
           - name: TABLE_NAME
             value: 'db-awsproj-orb'
