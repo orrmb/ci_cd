@@ -19,7 +19,7 @@ spec:
               service:
                 name: srv-polybot
                 port:
-                  number: 8444
+                  number: 443
 
 
 
