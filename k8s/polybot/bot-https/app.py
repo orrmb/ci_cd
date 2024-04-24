@@ -18,8 +18,8 @@ TABLE_NAME = os.environ['TABLE_NAME']
 BUCKET_NAME = os.environ['BUCKET_NAME']
 
 s3 = boto3.client('s3', region_name='us-west-2')
-s3.download_file(BUCKET_NAME, 'certificate/YOURPUBLIC-dev.pem', './certificate/')
-s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-dev.key', './certificate/')
+s3.download_file(BUCKET_NAME, 'certificate/YOURPUBLIC-dev.pem', './certificate/YOURPUBLIC-dev.pem')
+s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-dev.key', './certificate/YOURPRIVATE-dev.key')
 
 WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-dev.pem'
 WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-dev.key'

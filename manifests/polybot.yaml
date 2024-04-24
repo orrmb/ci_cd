@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: bot-app
-        image: orrmb/bot-app-dev:cicd-0.0.7
+        image: orrmb/bot-app-dev:cicd-0.0.8
         env:
           - name: TABLE_NAME
             value: 'dev-dynamo-orb'
@@ -53,7 +53,3 @@ spec:
     - protocol: TCP
       port: 443
       targetPort: 443
-
-
-#kubectl apply -f polybot.yaml --namespace=bot-yolo-app
-#orb-bot-k8s.devops-int-college.com
