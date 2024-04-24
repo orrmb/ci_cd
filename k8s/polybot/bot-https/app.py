@@ -71,6 +71,7 @@ def results():
     bot.send_text(chat_id, text_results)
     return 'Ok'
 
+
 @app.route(f'/health', methods=['GET'])
 def liveness():
     return 'Ok'
