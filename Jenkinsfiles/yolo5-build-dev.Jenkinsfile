@@ -6,10 +6,6 @@ pipeline {
         }
     }
 
-    environment {
-        IMAGE_NAME = 'orrmb/yolo-app-dev'
-    }
-
     stages {
         stage('Docker Hub login') {
             steps {
@@ -31,7 +27,7 @@ pipeline {
                     if (version) {
                         env.VERSION = version[0][1]
                         echo "${VERSION}"
-                        env.IMAGE_NAME="${IMAGE_NAME}:cicd-${VERSION}"
+                        env.IMAGE_NAME="orrmb/yolo-app-dev:cicd-${VERSION}"
                     } else {
                         echo "Version not found"
                         scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
