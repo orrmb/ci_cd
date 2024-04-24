@@ -28,8 +28,13 @@ spec:
     protocol: TCP
     targetPort: http
   - appProtocol: https
-    name: https
+    name: https-prod
     port: 8443
+    protocol: TCP
+    targetPort: https
+  - appProtocol: https
+    name: https-dev
+    port: 8444
     protocol: TCP
     targetPort: https
   selector:

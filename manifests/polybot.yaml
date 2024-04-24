@@ -49,8 +49,8 @@ spec:
     app:  polybot
   ports:
     - protocol: TCP
-      port: 8443
-      targetPort: 8443
+      port: 8444
+      targetPort: 8444
 
 
 #kubectl apply -f polybot.yaml --namespace=bot-yolo-app
