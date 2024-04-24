@@ -37,6 +37,7 @@ TELEGRAM_TOKEN = json.loads(secret)['TELEGRAM_TOKEN']
 def index():
     return 'Ok'
 
+
 @app.route(f'/{TELEGRAM_TOKEN}/', methods=['POST'])
 def webhook():
     req = request.get_json()
