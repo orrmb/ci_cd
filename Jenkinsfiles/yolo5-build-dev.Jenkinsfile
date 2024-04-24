@@ -38,7 +38,7 @@ pipeline {
                     }
                 }
                 echo "Starting to build image $IMAGE_NAME"
-                sh "docker build -t ${IMAGE_NAME} . -f k8s/polybot/bot-https/Dockerfile"
+                sh "docker build -t ${IMAGE_NAME} . -f k8s/yolo5/Dockerfile"
                 echo "The image $IMAGE_NAME has been built"
                 sh "docker push ${IMAGE_NAME}"
                 echo "Pushed the image $IMAGE_NAME"
