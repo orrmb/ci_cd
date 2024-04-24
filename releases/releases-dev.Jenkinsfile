@@ -6,3 +6,11 @@ pipeline {
         }
     }
     parameters { string(name: 'IMAGE_NAME', defaultValue: '', description: '') }
+    stages{
+        stage("test"){
+            steps{
+                echo "work ${IMAGE_NAME}"
+            }
+        }
+    }
+}
