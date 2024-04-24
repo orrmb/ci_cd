@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Trigger Deploy') {
             steps {
-                build job: 'cd-dev', wait: false, parameters: [
+                build job: 'releases/cd-dev', wait: false, parameters: [
                 string(name: 'IMAGE_NAME', value: "${IMAGE_NAME}")
         ]
     }
