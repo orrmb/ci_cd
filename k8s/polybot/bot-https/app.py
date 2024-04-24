@@ -15,6 +15,11 @@ app = flask.Flask(__name__)
 
 TELEGRAM_APP_URL = 'https://orb-polybot-prod.devops-int-college.com:8443'
 TABLE_NAME = os.environ['TABLE_NAME']
+BUCKET_NAME = os.environ['BUCKET_NAME']
+
+s3 = boto3.client('s3', region_name='us-west-2')
+s3.download_file(BUCKET_NAME, 'certificate/YOURPUBLIC-prod.pem', './certificate/YOURPUBLIC-prod.pem')
+s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-prod.key', './certificate/YOURPRIVATE-prod.key')
 
 WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-prod.pem'
 WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-prod.key'
