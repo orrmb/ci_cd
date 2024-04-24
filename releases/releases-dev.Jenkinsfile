@@ -15,7 +15,8 @@ pipeline {
         }
         stage("commit & push"){
             steps{
-                sh "git commit -m 'new version ${IMAGE_NAME}'"
+                sh "git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
+                sh 'git commit -m "new version ${IMAGE_NAME}"'
                 sh "git push -a"
             }
         }
