@@ -13,7 +13,7 @@ import signal
 
 app = flask.Flask(__name__)
 
-TELEGRAM_APP_URL = 'https://orb-polybot-dev.devops-int-college.com:8444'
+TELEGRAM_APP_URL = 'https://orb-polybot-dev.devops-int-college.com:443'
 TABLE_NAME = os.environ['TABLE_NAME']
 
 WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-dev.pem'
@@ -91,6 +91,6 @@ signal.signal(signal.SIGTERM, sigterm_handler)
 
 if __name__ == "__main__":
     bot = ObjectDetectionBot(TELEGRAM_TOKEN, TELEGRAM_APP_URL, WEBHOOK_SSL_CERT)
-    app.run(host='0.0.0.0', port=8443, debug=True)
+    app.run(host='0.0.0.0', port=443, debug=True)
 
 
