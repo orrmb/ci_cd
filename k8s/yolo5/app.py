@@ -7,7 +7,10 @@ from loguru import logger
 import json
 import os
 import boto3
+import urllib3
 
+'''disable error unsecure connection'''
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 images_bucket = os.environ['BUCKET_NAME']
 queue_name = os.environ['SQS_QUEUE_NAME']
 
