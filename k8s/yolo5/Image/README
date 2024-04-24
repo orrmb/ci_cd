@@ -1,0 +1,2 @@
+*** This is important directroy that the image in the container will save the photo ***
+        the docker  file will copy this directory to the container
