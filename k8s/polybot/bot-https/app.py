@@ -28,6 +28,7 @@ client = session.client(
     region_name=region_name,
 )
 
+
 get_secret_value_response = client.get_secret_value(
     SecretId=secret_name)
 secret = get_secret_value_response['SecretString']
