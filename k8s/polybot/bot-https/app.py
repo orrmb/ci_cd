@@ -13,7 +13,7 @@ import signal
 
 app = flask.Flask(__name__)
 
-TELEGRAM_APP_URL = 'https://orb-polybot-dev.devops-int-college.com:8443'
+TELEGRAM_APP_URL = 'https://orb-polybot-dev.devops-int-college.com:8444'
 TABLE_NAME = os.environ['TABLE_NAME']
 
 WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-dev.pem'
