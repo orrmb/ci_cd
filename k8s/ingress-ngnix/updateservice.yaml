@@ -34,7 +34,7 @@ spec:
     targetPort: https
   - appProtocol: https
     name: https-dev
-    port: 8444
+    port: 443
     protocol: TCP
     targetPort: https
   selector:
