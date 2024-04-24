@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: bot-app
-        image: orrmb/bot-app:k8s.6
+        image: orrmb/bot-app-prod:cicd-0.0.1
         env:
           - name: TABLE_NAME
-            value: 'dev-dynamo-orb'
+            value: 'prod-dynamo-orb'
         resources:
           requests:
             cpu: 300m
