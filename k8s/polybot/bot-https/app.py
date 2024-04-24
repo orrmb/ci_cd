@@ -33,7 +33,6 @@ get_secret_value_response = client.get_secret_value(
 secret = get_secret_value_response['SecretString']
 TELEGRAM_TOKEN = json.loads(secret)['TELEGRAM_TOKEN']
 
-
 @app.route('/', methods=['GET'])
 def index():
     return 'Ok'
