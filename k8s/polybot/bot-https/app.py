@@ -13,11 +13,11 @@ import signal
 
 app = flask.Flask(__name__)
 
-TELEGRAM_APP_URL = 'https://orb-k8s-proj.devops-int-college.com:8443'
+TELEGRAM_APP_URL = 'https://orb-polybot-prod.devops-int-college.com:8443'
 TABLE_NAME = os.environ['TABLE_NAME']
 
-WEBHOOK_SSL_CERT = './cerrificate/YOURPUBLIC-dev.pem'
-WEBHOOK_SSL_PRIV = './cerrificate/YOURPRIVATE-dev.key'
+WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-prod.pem'
+WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-prod.key'
 
 secret_name = "awspro/bot/token"
 region_name = "us-west-2"
