@@ -15,7 +15,7 @@ pipeline {
         stage("commit & push"){
             steps{
                 sh "git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
-                sh " git add -all"
+                sh " git add --all"
                 sh 'git config --global user.email "you@example.com"'
                 sh 'git config --global user.name "update-manifests"'
                 sh 'git commit -m "new version ${IMAGE_NAME}"'
