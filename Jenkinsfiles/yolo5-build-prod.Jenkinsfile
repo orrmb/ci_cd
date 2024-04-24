@@ -45,7 +45,16 @@ pipeline {
                 cleanWs()
             }
         }
+        stage('Trigger Deploy') {
+            steps {
+                build job: 'releases/cd-prod', wait: false, parameters: [
+                string(name: 'IMAGE_NAME', value: "${IMAGE_NAME}")
+                ]
+            }
+        }
     }
+
+
 
     post {
         always {
