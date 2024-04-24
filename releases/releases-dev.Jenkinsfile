@@ -9,11 +9,14 @@ pipeline {
     stages{
         stage("check the change"){
             steps{
-                if (IMAGE_NAME.contains('orrmb/bot-app-dev')){
-                    sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
-                }else{
-                    sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/yolobot.yaml"
+                script{
+                     if (IMAGE_NAME.contains('orrmb/bot-app-dev')){
+                        sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
+                    }else{
+                        sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/yolobot.yaml"
+                    }
                 }
+
             }
         }
         stage("commit & push"){
