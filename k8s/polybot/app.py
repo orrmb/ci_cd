@@ -48,7 +48,7 @@ else:
 """load TELEGRAM_TOKEN value from Secret Manager"""
 TELEGRAM_TOKEN = json.loads(secret)['TELEGRAM_TOKEN']
 
-TELEGRAM_APP_URL = 'https://orb-k8s-proj.devops-int-college.com:8443'
+TELEGRAM_APP_URL = 'https://orb-polybot-dev.devops-int-college.com:8443'
 TABLE_NAME = os.environ['TABLE_NAME']
 
 
