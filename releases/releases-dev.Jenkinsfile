@@ -9,7 +9,7 @@ pipeline {
     stages{
         stage("test"){
             steps{
-                echo "work ${IMAGE_NAME}"
+                sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' dev/polybot.yaml"
             }
         }
     }
