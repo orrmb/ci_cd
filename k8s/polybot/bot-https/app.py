@@ -56,6 +56,7 @@ def results():
         TableName=TABLE_NAME
     )
 
+
     document = respone['Item']
     data = document['labels']
     data_list = ast.literal_eval(data['S'])
