@@ -43,6 +43,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: srv-polybot
+  namespace: prod
 spec:
   selector:
     app:  polybot
