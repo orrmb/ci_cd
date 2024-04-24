@@ -7,9 +7,13 @@ pipeline {
     }
     parameters { string(name: 'IMAGE_NAME', defaultValue: '', description: '') }
     stages{
-        stage("test"){
+        stage("check the change"){
             steps{
-                sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
+                if ('orrmb/bot-app-dev' in IMAGE_NAME){
+                    sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
+                }else{
+                    sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/yolobot.yaml"
+                }
             }
         }
         stage("commit & push"){
