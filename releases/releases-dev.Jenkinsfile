@@ -9,7 +9,7 @@ pipeline {
     stages{
         stage("check the change"){
             steps{
-                if ('orrmb/bot-app-dev' in IMAGE_NAME){
+                if ('orrmb/bot-app-dev' in ${IMAGE_NAME}){
                     sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
                 }else{
                     sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/yolobot.yaml"
@@ -18,12 +18,15 @@ pipeline {
         }
         stage("commit & push"){
             steps{
-                sh "git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
-                sh " git add --all"
-                sh 'git config --global user.email "you@example.com"'
-                sh 'git config --global user.name "update-manifests"'
-                sh 'git commit -m "new version ${IMAGE_NAME}"'
-                sh "git push --all"
+                script{
+                    dir('/var/lib/jenkins/workspace/releases/cd-dev') {
+                        sh " git add --all"
+                        sh 'git config --global user.email "you@example.com"'
+                        sh 'git config --global user.name "update-manifests"'
+                        sh 'git commit -m "new version ${IMAGE_NAME}"'
+                        sh "git push origin releases"
+                    }
+                }
             }
         }
     }
