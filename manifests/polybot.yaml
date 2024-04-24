@@ -29,12 +29,12 @@ spec:
           initialDelaySeconds: 10
           httpGet:
             path: "/health"
-            port: 8444
+            port: 443
         readinessProbe:
           initialDelaySeconds: 10
           httpGet:
             path: "/ready"
-            port: 8444
+            port: 443
       terminationGracePeriodSeconds: 30
 
 ---
@@ -49,8 +49,8 @@ spec:
     app:  polybot
   ports:
     - protocol: TCP
-      port: 8444
-      targetPort: 8444
+      port: 443
+      targetPort: 443
 
 
 #kubectl apply -f polybot.yaml --namespace=bot-yolo-app
