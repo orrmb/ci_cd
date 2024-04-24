@@ -5,11 +5,6 @@ pipeline {
             args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
-
-    environment {
-        IMAGE_NAME = 'orrmb/bot-app-dev'
-    }
-
     stages {
         stage('Docker Hub login') {
             steps {
@@ -31,7 +26,7 @@ pipeline {
                     if (version) {
                         env.VERSION = version[0][1]
                         echo "${VERSION}"
-                        env.IMAGE_NAME="${IMAGE_NAME}:cicd-${VERSION}"
+                        env.IMAGE_NAME="orrmb/bot-app-dev:cicd-${VERSION}"
                     } else {
                         echo "Version not found"
                         scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
