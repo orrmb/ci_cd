@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: bot-app
-        image: orrmb/bot-app-prod:cicd-0.0.1
+        image: orrmb/bot-app-prod:cicd-0.0.2
         env:
           - name: TABLE_NAME
             value: 'prod-dynamo-orb'
