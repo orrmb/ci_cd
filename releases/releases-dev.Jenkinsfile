@@ -9,7 +9,7 @@ pipeline {
     stages{
         stage("check the change"){
             steps{
-                if ('orrmb/bot-app-dev' in IMAGE_NAME){
+                if (IMAGE_NAME.contains('orrmb/bot-app-dev')){
                     sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
                 }else{
                     sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/yolobot.yaml"
