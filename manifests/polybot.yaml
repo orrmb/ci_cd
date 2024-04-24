@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: bot-app
-        image: orrmb/bot-app-dev:cicd-0.0.3
+        image: orrmb/bot-app-dev:cicd-0.0.4
         env:
           - name: TABLE_NAME
             value: 'dev-dynamo-orb'
@@ -29,12 +29,12 @@ spec:
           initialDelaySeconds: 10
           httpGet:
             path: "/health"
-            port: 8443
+            port: 8444
         readinessProbe:
           initialDelaySeconds: 10
           httpGet:
             path: "/ready"
-            port: 8443
+            port: 8444
       terminationGracePeriodSeconds: 30
 
 ---
