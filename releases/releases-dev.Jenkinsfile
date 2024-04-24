@@ -10,7 +10,6 @@ pipeline {
         stage("test"){
             steps{
                 sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
-                sh "git fetch"
             }
         }
         stage("commit & push"){
