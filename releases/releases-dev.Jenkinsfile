@@ -30,15 +30,15 @@ pipeline {
                 script{
                     sh 'cd /var/lib/jenkins/workspace/releases/cd-dev'
                     sh "sudo git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
-                    sh "sudo git add ${FILECHANGE}"
-                    sh 'sudo git commit -m "new version ${IMAGE_NAME}"'
+                    sh "git add ${FILECHANGE}"
+                    sh 'git commit -m "new version ${IMAGE_NAME}"'
                 }
             }
         }
         stage("git push"){
             steps{
                withCredentials([gitUsernamePassword(credentialsId: 'orrmb', gitToolName: 'Default')]) {
-                   sh "sudo git push origin HEAD"
+                   sh "git push origin HEAD"
                 }
             }
         }
