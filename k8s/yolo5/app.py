@@ -103,5 +103,6 @@ def consume():
             # Delete the message from the queue as the job is considered as DONE
             sqs_client.delete_message(QueueUrl=queue_name, ReceiptHandle=receipt_handle)
 
+
 if __name__ == "__main__":
     consume()
