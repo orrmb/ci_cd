@@ -27,6 +27,7 @@ pipeline {
             steps{
                 script{
                     dir('/var/lib/jenkins/workspace/releases/cd-dev') {
+                        sh "git config"
                         sh 'git fetch'
                         sh "git add ${FILECHANGE}"
                         sh 'git commit -m "new version ${IMAGE_NAME}"'
@@ -37,7 +38,7 @@ pipeline {
         stage("git push"){
             steps{
                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                   sh "git push -u origin main"
+                   sh "git push -u origin releases"
 
             }
         }
