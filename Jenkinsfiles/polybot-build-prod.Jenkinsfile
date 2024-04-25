@@ -6,10 +6,6 @@ pipeline {
         }
     }
 
-    environment {
-        IMAGE_NAME = 'orrmb/bot-app-prod'
-    }
-
     stages {
         stage('Docker Hub login') {
             steps {
