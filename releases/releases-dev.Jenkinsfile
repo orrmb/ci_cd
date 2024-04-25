@@ -43,7 +43,7 @@ pipeline {
         }
         stage("Push to Git Repository") {
             steps {
-                    withCredentials([gitUsernamePassword(credentialsId: 'ssbostan-github-token', gitToolName: 'Default')]) {
+                    withCredentials([gitUsernamePassword(credentialsId: 'Jenkins TOKEN', gitToolName: 'Default')]) {
                     sh 'git push origin HEAD:releases'
                 }
             }
