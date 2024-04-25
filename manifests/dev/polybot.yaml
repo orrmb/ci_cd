@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: polybot-dep-dev
+  name: polybot-dep
   namespace: dev
   labels:
     app: polybot
@@ -31,12 +31,12 @@ spec:
           initialDelaySeconds: 10
           httpGet:
             path: "/health"
-            port: 8443
+            port: 443
         readinessProbe:
           initialDelaySeconds: 10
           httpGet:
             path: "/ready"
-            port: 8443
+            port: 443
       terminationGracePeriodSeconds: 30
 
 ---
@@ -51,9 +51,5 @@ spec:
     app:  polybot
   ports:
     - protocol: TCP
-      port: 8443
-      targetPort: 8443
-
-
-#kubectl apply -f polybot.yaml --namespace=bot-yolo-app
-#orb-bot-k8s.devops-int-college.com
+      port: 443
+      targetPort: 443
