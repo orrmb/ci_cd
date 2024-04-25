@@ -27,17 +27,17 @@ pipeline {
             steps{
                 script{
                     sh 'cd /var/lib/jenkins/workspace/releases/cd-dev'
-                    sh "git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
-                    sh 'git fetch'
-                    sh "git add ${FILECHANGE}"
-                    sh 'git commit -m "new version ${IMAGE_NAME}"'
+                    sh "sudo git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
+                    sh 'sudo git fetch'
+                    sh "sudo git add ${FILECHANGE}"
+                    sh 'sudo git commit -m "new version ${IMAGE_NAME}"'
                 }
             }
         }
         stage("git push"){
             steps{
-               withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                   sh "git push -u origin releases"
+               withCredentials([gitUsernamePassword(credentialsId: 'orrmb', gitToolName: 'Default')]) {
+                   sh "sudo git push origin HEAD"
                 }
             }
         }
