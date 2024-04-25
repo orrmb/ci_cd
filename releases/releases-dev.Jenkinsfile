@@ -29,7 +29,7 @@ pipeline {
             steps{
                 script{
                     sh 'cd /var/lib/jenkins/workspace/releases/cd-dev'
-                    sh "sudo git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
+                    sh "git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
                     sh "git add ${FILECHANGE}"
                     sh 'git commit -m "new version ${IMAGE_NAME}"'
                 }
