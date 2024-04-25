@@ -25,22 +25,5 @@ pipeline {
 
             }
         }
-        stage("git commit"){
-            steps{
-                script{
-                    git url: 'https://github.com/orrmb/ci_cd.git'
-                         credentialsId: 'Jenkins TOKEN'
-                    sh 'cd /var/lib/jenkins/workspace/releases/cd-dev'
-                    sh "git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
-                    sh "git add ${FILECHANGE}"
-                    sh 'git commit -m "new version ${IMAGE_NAME}"'
-                }
-            }
-        }
-        stage("git push"){
-            steps{
-                   sh "git push origin/releases"
-            }
-        }
     }
 }
