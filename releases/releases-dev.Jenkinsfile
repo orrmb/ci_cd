@@ -43,8 +43,8 @@ pipeline {
         }
         stage("Push to Git Repository") {
             steps {
-                withCredentials([gitUsernamePassword(credentialsId: 'Jenkins TOKEN', gitToolName: 'Default')]) {
-                    sh "git push -u origin releases"
+                    dir('/var/lib/jenkins/workspace/releases/cd-dev') {
+                        sh 'git push origin HEAD:releases'
                 }
             }
         }
