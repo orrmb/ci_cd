@@ -41,10 +41,15 @@ pipeline {
                 }
             }
         }
-        stage("git push"){
-            steps{
-                   sh "git push origin HEAD:releases"
+        stage("Push to Git Repository") {
+            steps {
+                withCredentials([gitUsernamePassword(credentialsId: 'Jenkins TOKEN', gitToolName: 'Default')]) {
+                    sh "git push -u origin releases"
+                }
             }
         }
+    }
+    post{
+        cleanWC()
     }
 }
