@@ -50,6 +50,8 @@ pipeline {
         }
     }
     post{
-        cleanWC()
+        always{
+            cleanWs()
+        }
     }
 }
