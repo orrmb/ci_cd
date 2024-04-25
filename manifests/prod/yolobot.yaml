@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: yolo-app
-        image: orrmb/yolo-app-prod:cicd-0.1.1
+        image: orrmb/yolo-app-prod:cicd-0.1.2
         env:
           - name: BUCKET_NAME
             value: 'prod-s3-orb'
