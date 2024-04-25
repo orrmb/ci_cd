@@ -33,7 +33,7 @@ pipeline {
                     sh 'cd /var/lib/jenkins/workspace/releases/cd-prod'
                     sh 'git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-prod'
                     sh 'git fetch'
-                    sh "git add ${FILECHANGE} version"
+                    sh "git add ${FILECHANGE} versions"
                     sh '''
                       git config --global user.email "you@example.com"
                       git config --global user.name "orrmb"
