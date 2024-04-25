@@ -33,6 +33,7 @@ client = session.client(
     region_name=region_name,
 )
 
+
 try:
     get_secret_value_response = client.get_secret_value(
         SecretId=secret_name
