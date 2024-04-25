@@ -43,7 +43,7 @@ pipeline {
         }
         stage("git push"){
             steps{
-                   sh "git push origin/releases HEAD"
+                   sh "git push "
                    cleanWs()
             }
         }
