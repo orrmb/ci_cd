@@ -15,11 +15,13 @@ pipeline {
                         echo "change in polybot"
                         env.FILECHANGE = 'manifests/dev/polybot.yaml'
                         echo "file modified ${FILECHANGE}"
+                        sh "echo ${IMAGE_NAME} >> versions"
                     }else{
                         sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/yolobot.yaml"
                         echo "change in yolobot"
                         env.FILECHANGE = 'manifests/dev/yolobot.yaml'
                         echo "file modified ${FILECHANGE}"
+                        sh "echo ${IMAGE_NAME} >> versions"
                     }
                 }
 
@@ -31,7 +33,7 @@ pipeline {
                     sh 'cd /var/lib/jenkins/workspace/releases/cd-dev'
                     sh 'git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev'
                     sh 'git fetch'
-                    sh "git add ${FILECHANGE}"
+                    sh "git add ${FILECHANGE} versions"
                     sh '''
                       git config --global user.email "you@example.com"
                       git config --global user.name "orrmb"
