@@ -28,6 +28,8 @@ pipeline {
         stage("git commit"){
             steps{
                 script{
+                    git url: 'https://github.com/orrmb/ci_cd.git'
+                         credentialsId: 'Jenkins TOKEN'
                     sh 'cd /var/lib/jenkins/workspace/releases/cd-dev'
                     sh "git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
                     sh "git add ${FILECHANGE}"
@@ -37,8 +39,7 @@ pipeline {
         }
         stage("git push"){
             steps{
-               withCredentials([gitUsernamePassword(credentialsId: 'orrmb', gitToolName: 'Default')]) {
-                   sh "git push origin HEAD"
+                   sh "git push origin/releases"
                 }
             }
         }
