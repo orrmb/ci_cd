@@ -14,10 +14,12 @@ pipeline {
                         sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
                         echo "change in polybot"
                         env.FILECHANGE = 'manifests/dev/polybot.yaml'
+                        echo "file modified ${FILECHANGE}"
                     }else{
                         sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/yolobot.yaml"
                         echo "change in yolobot"
-                        env.FILECHANGE = manifests/dev/yolobot.yaml
+                        env.FILECHANGE = 'manifests/dev/yolobot.yaml'
+                        echo "file modified ${FILECHANGE}"
                     }
                 }
 
