@@ -32,6 +32,10 @@ pipeline {
                     sh 'git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev'
                     sh 'git fetch'
                     sh "git add ${FILECHANGE}"
+                    sh '''
+                      git config --global user.email "you@example.com"
+                      git config --global user.name "orrmb"
+                      '''
                     sh 'git commit -m "new version ${IMAGE_NAME}"'
 
                 }
