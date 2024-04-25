@@ -12,24 +12,33 @@ pipeline {
                 script{
                      if (IMAGE_NAME.contains('orrmb/bot-app-dev')){
                         sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/polybot.yaml"
+                        echo "change in polybot"
+                        env.FILECHANGE = 'manifests/dev/polybot.yaml'
                     }else{
                         sh "sed -i 's#image: .*#image: ${IMAGE_NAME}#' manifests/dev/yolobot.yaml"
+                        echo "change in yolobot"
+                        env.FILECHANGE = manifests/dev/yolobot.yaml
                     }
                 }
 
             }
         }
-        stage("commit & push"){
+        stage("git commit"){
             steps{
                 script{
                     dir('/var/lib/jenkins/workspace/releases/cd-dev') {
-                        sh " git add --all"
-                        sh 'git config --global user.email "you@example.com"'
-                        sh 'git config --global user.name "update-manifests"'
+                        sh 'git fetch'
+                        sh "git add ${FILECHANGE}"
                         sh 'git commit -m "new version ${IMAGE_NAME}"'
-                        sh "git push origin releases"
                     }
                 }
+            }
+        }
+        stage("git push"){
+            steps{
+               withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                   sh "git push -u origin main"
+
             }
         }
     }
