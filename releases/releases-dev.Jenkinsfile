@@ -22,7 +22,6 @@ pipeline {
                         echo "file modified ${FILECHANGE}"
                     }
                 }
-
             }
         }
     }
