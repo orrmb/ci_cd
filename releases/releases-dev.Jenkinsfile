@@ -26,12 +26,11 @@ pipeline {
         stage("git commit"){
             steps{
                 script{
-                    dir('/var/lib/jenkins/workspace/releases/cd-dev') {
-                        sh "git config"
-                        sh 'git fetch'
-                        sh "git add ${FILECHANGE}"
-                        sh 'git commit -m "new version ${IMAGE_NAME}"'
-                    }
+                    sh 'cd /var/lib/jenkins/workspace/releases/cd-dev'
+                    sh "git config --global --add safe.directory /var/lib/jenkins/workspace/releases/cd-dev"
+                    sh 'git fetch'
+                    sh "git add ${FILECHANGE}"
+                    sh 'git commit -m "new version ${IMAGE_NAME}"'
                 }
             }
         }
