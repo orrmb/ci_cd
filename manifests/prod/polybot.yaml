@@ -24,9 +24,9 @@ spec:
             value: 'prod-s3-orb'
         resources:
           requests:
-            cpu: 300m
+            cpu: 200m
           limits:
-            cpu: 300m
+            cpu: 200m
         livenessProbe:
           initialDelaySeconds: 10
           httpGet:
