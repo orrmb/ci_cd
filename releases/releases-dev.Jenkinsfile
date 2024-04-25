@@ -39,7 +39,7 @@ pipeline {
             steps{
                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
                    sh "git push -u origin releases"
-
+                }
             }
         }
     }
