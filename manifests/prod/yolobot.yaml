@@ -19,9 +19,9 @@ spec:
         image: orrmb/yolo-app-prod:cicd-0.1.1
         env:
           - name: BUCKET_NAME
-            value: 'awsproj-orb'
+            value: 'prod-s3-orb'
           - name: SQS_QUEUE_NAME
-            value: 'sqs-aws-project'
+            value: 'prod-sqs-orb'
         resources:
           requests:
             cpu: 400m
