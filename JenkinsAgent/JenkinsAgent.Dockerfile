@@ -27,7 +27,7 @@ RUN python3 -m venv /venv
 FROM jenkins/agent
 
 # Copy tools from the installer stage
-COPY --from=installer /usr/local/bin/docker /usr/local/bin/docker
+COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker
 COPY --from=installer /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=installer /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=installer /snyk/ /usr/local/bin/snyk
