@@ -19,7 +19,6 @@ sqs_client = boto3.client('sqs', region_name='us-west-2')
 with open("data/coco128.yaml", "r") as stream:
     names = yaml.safe_load(stream)['names']
 
-
 def consume():
     while True:
         response = sqs_client.receive_message(QueueUrl=queue_name, MaxNumberOfMessages=1, WaitTimeSeconds=5)
@@ -42,8 +41,6 @@ def consume():
             s3 = boto3.client('s3', region_name='us-west-2')
             s3.download_file(images_bucket, f'images/{img_name}', original_img_path)
             logger.info(f'prediction: {prediction_id}/{original_img_path}. Download img completed')
-
-
 
             # Predicts the objects in the image
             run(
