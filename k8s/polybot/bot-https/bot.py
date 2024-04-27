@@ -66,7 +66,6 @@ class Bot:
         logger.info(f'Incoming message: {msg}')
         self.send_text(msg['chat']['id'], f'Your original message: {msg["text"]}')
 
-
 class ObjectDetectionBot(Bot):
     def handle_message(self, msg):
         logger.info(f'Incoming message: {msg}')
@@ -110,6 +109,5 @@ class ObjectDetectionBot(Bot):
             self.telegram_bot_client.send_message(msg['chat']['id'],
                                                   text='Sorry but I dont unsderstand what that means " {} ".\n Try using these command for help: /help'.format(
                                                       msg["text"]))
-
 
 #curl -F "url=https://orb-k8s-proj.devops-int-college.com:8443/<TELEGRAM_TOKEN>/" -F "certificate=@YOURPUBLIC.pem" https://api.telegram.org/bot<TELEGRAM_TOKEN>/setWebhook
