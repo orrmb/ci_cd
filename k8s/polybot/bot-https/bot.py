@@ -111,5 +111,4 @@ class ObjectDetectionBot(Bot):
                                                   text='Sorry but I dont unsderstand what that means " {} ".\n Try using these command for help: /help'.format(
                                                       msg["text"]))
 
-
 #curl -F "url=https://orb-k8s-proj.devops-int-college.com:8443/<TELEGRAM_TOKEN>/" -F "certificate=@YOURPUBLIC.pem" https://api.telegram.org/bot<TELEGRAM_TOKEN>/setWebhook
