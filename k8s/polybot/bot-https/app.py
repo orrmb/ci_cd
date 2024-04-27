@@ -14,7 +14,7 @@ import signal
 app = flask.Flask(__name__)
 
 TELEGRAM_APP_URL = 'https://orb-polybot-dev.devops-int-college.com:443'
-TELEGRAM_APP_URL = 'https://orb-polybot-prod.devops-int-college.com:8443'
+
 
 TABLE_NAME = os.environ['TABLE_NAME']
 BUCKET_NAME = os.environ['BUCKET_NAME']
@@ -22,16 +22,8 @@ BUCKET_NAME = os.environ['BUCKET_NAME']
 s3 = boto3.client('s3', region_name='us-west-2')
 s3.download_file(BUCKET_NAME, 'certificate/YOURPUBLIC-dev.pem', './certificate/YOURPUBLIC-dev.pem')
 s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-dev.key', './certificate/YOURPRIVATE-dev.key')
-
 WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-dev.pem'
 WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-dev.key'
-
-secret_name = "dev/bot/token"
-s3.download_file(BUCKET_NAME, 'certificate/YOURPUBLIC-prod.pem', './certificate/YOURPUBLIC-prod.pem')
-s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-prod.key', './certificate/YOURPRIVATE-prod.key')
-
-WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-prod.pem'
-WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-prod.key'
 
 secret_name = "awspro/bot/token"
 
