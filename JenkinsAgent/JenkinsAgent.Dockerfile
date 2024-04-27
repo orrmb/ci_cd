@@ -22,7 +22,7 @@ RUN mkdir /snyk && cd /snyk \
 FROM python:3.11.8-alpine as python_builder
 
 # Create a virtual environment
-RUN python3 -m venv /usr/local/bin/python3/venv
+RUN python3 -m venv /venv
 
 FROM jenkins/agent
 
@@ -31,4 +31,4 @@ COPY --from=installer /usr/local/bin/docker /usr/local/bin/docker
 COPY --from=installer /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=installer /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=installer /snyk/ /usr/local/bin/snyk
-COPY --from=python_builder /usr/local/bin/python3/venv/ /usr/local/bin/python3/venv/
+COPY --from=python_builder /venv /venv
