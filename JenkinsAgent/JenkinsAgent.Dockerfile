@@ -31,4 +31,4 @@ COPY --from=installer /usr/local/bin/docker /usr/local/bin/docker
 COPY --from=installer /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=installer /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=installer /snyk/ /usr/local/bin/snyk
-COPY --from=python_builder /usr/local/bin/python3/ /usr/local/bin/python3/
+COPY --from=python_builder /usr/local/bin/python3/venv/ /usr/local/bin/python3/venv/
