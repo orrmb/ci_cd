@@ -43,8 +43,6 @@ def consume():
             s3.download_file(images_bucket, f'images/{img_name}', original_img_path)
             logger.info(f'prediction: {prediction_id}/{original_img_path}. Download img completed')
 
-
-
             # Predicts the objects in the image
             run(
                 weights='yolov5s.pt',
