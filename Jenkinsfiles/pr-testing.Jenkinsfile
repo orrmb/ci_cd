@@ -1,12 +1,11 @@
 pipeline {
     agent {
         docker {
-        image 'orrmb/jenkinsagent'
-        args  '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+            image 'orrmb/jenkinsagent'
+            args  '--user root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
     stages {
-        }
         stage('Lint') {
             steps {
                 sh 'pip install -r Jenkinsfiles/requirements.txt'
@@ -16,9 +15,9 @@ pipeline {
                 always {
                     sh 'cat pylint.log'
                     recordIssues (
-                      enabledForFailure: true,
-                      aggregatingResults: true,
-                      tools: [pyLint(name: 'Pylint', pattern: '**/pylint.log')]
+                        enabledForFailure: true,
+                        aggregatingResults: true,
+                        tools: [pyLint(name: 'Pylint', pattern: '**/pylint.log')]
                     )
                 }
             }
