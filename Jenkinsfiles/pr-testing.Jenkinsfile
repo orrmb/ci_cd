@@ -8,8 +8,7 @@ pipeline {
     stages {
         stage('Lint') {
             steps {
-                sh 'pip install --upgrade pip'
-                sh 'pip install -r Jenkinsfiles/requirements.txt'
+                sh 'pip3 install -r Jenkinsfiles/requirements.txt'
                 sh 'python3 -m pylint -f parseable --reports=no k8s/polybot/bot-https/*.py && python3 -m pylint -f parseable --reports=no k8s/yolo5*.py > pylint.log'
             }
             post {
