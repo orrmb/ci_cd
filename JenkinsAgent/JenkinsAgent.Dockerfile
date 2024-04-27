@@ -26,9 +26,11 @@ RUN python3 -m venv /venv
 
 FROM jenkins/agent
 
-# Copy tools from the installer stage
+# Copy the `docker` (client only!!!) from `docekr` image to this image.
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker
+# Copy tools from the installer stage
 COPY --from=installer /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=installer /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=installer /snyk/ /usr/local/bin/snyk
+# Copy the Python venv
 COPY --from=python_builder /venv /venv
