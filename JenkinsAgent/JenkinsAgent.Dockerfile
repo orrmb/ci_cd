@@ -22,7 +22,7 @@ RUN mkdir /snyk && cd /snyk \
 FROM python:3.11.8-alpine as python_builder
 
 # Create a virtual environment
-RUN python -m venv /usr/local/bin/python3/venv
+RUN python3 -m venv /usr/local/bin/python3/venv
 
 FROM jenkins/agent
 
