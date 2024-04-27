@@ -1,0 +1,4 @@
+textstat==0.7.3
+# testing
+pylint
+pytest
