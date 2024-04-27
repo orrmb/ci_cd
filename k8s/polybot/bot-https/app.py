@@ -14,6 +14,8 @@ import signal
 app = flask.Flask(__name__)
 
 TELEGRAM_APP_URL = 'https://orb-polybot-dev.devops-int-college.com:443'
+TELEGRAM_APP_URL = 'https://orb-polybot-prod.devops-int-college.com:8443'
+
 TABLE_NAME = os.environ['TABLE_NAME']
 BUCKET_NAME = os.environ['BUCKET_NAME']
 
@@ -25,6 +27,14 @@ WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-dev.pem'
 WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-dev.key'
 
 secret_name = "dev/bot/token"
+s3.download_file(BUCKET_NAME, 'certificate/YOURPUBLIC-prod.pem', './certificate/YOURPUBLIC-prod.pem')
+s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-prod.key', './certificate/YOURPRIVATE-prod.key')
+
+WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-prod.pem'
+WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-prod.key'
+
+secret_name = "awspro/bot/token"
+
 region_name = "us-west-2"
 
 session = boto3.session.Session()
@@ -36,6 +46,31 @@ client = session.client(
 get_secret_value_response = client.get_secret_value(
     SecretId=secret_name)
 secret = get_secret_value_response['SecretString']
+
+
+try:
+    get_secret_value_response = client.get_secret_value(
+        SecretId=secret_name
+    )
+except ClientError as e:
+    if e.response['Error']['Code'] == 'ResourceNotFoundException':
+        print("The requested secret " + secret_name + " was not found")
+    elif e.response['Error']['Code'] == 'InvalidRequestException':
+        print("The request was invalid due to:", e)
+    elif e.response['Error']['Code'] == 'InvalidParameterException':
+        print("The request had invalid params:", e)
+    elif e.response['Error']['Code'] == 'DecryptionFailure':
+        print("The requested secret can't be decrypted using the provided KMS key:", e)
+    elif e.response['Error']['Code'] == 'InternalServiceError':
+        print("An error occurred on service side:", e)
+else:
+    if 'SecretString' in get_secret_value_response:
+        secret = get_secret_value_response['SecretString']
+    else:
+        secret = get_secret_value_response['SecretBinary']
+
+"""load TELEGRAM_TOKEN value from Secret Manager"""
+
 TELEGRAM_TOKEN = json.loads(secret)['TELEGRAM_TOKEN']
 
 @app.route('/', methods=['GET'])
@@ -97,5 +132,7 @@ signal.signal(signal.SIGTERM, sigterm_handler)
 if __name__ == "__main__":
     bot = ObjectDetectionBot(TELEGRAM_TOKEN, TELEGRAM_APP_URL, WEBHOOK_SSL_CERT)
     app.run(host='0.0.0.0', port=443, debug=True)
+
+
 
 
