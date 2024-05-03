@@ -34,6 +34,7 @@ client = session.client(
     region_name=region_name,
 )
 
+
 get_secret_value_response = client.get_secret_value(
     SecretId=secret_name)
 secret = get_secret_value_response['SecretString']
@@ -101,7 +102,7 @@ def sigterm_handler(signum, frame):
     bot.send_text(chat_id, message)
     exit(0)
 
-    
+
 signal.signal(signal.SIGTERM, sigterm_handler)
 
 
