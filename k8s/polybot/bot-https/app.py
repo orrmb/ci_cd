@@ -25,8 +25,7 @@ s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-dev.key', './certificate/
 WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-dev.pem'
 WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-dev.key'
 
-secret_name = "awspro/bot/token"
-
+secret_name = "dev/bot/token"
 region_name = "us-west-2"
 
 session = boto3.session.Session()
@@ -39,31 +38,8 @@ get_secret_value_response = client.get_secret_value(
     SecretId=secret_name)
 secret = get_secret_value_response['SecretString']
 
-
-try:
-    get_secret_value_response = client.get_secret_value(
-        SecretId=secret_name
-    )
-except ClientError as e:
-    if e.response['Error']['Code'] == 'ResourceNotFoundException':
-        print("The requested secret " + secret_name + " was not found")
-    elif e.response['Error']['Code'] == 'InvalidRequestException':
-        print("The request was invalid due to:", e)
-    elif e.response['Error']['Code'] == 'InvalidParameterException':
-        print("The request had invalid params:", e)
-    elif e.response['Error']['Code'] == 'DecryptionFailure':
-        print("The requested secret can't be decrypted using the provided KMS key:", e)
-    elif e.response['Error']['Code'] == 'InternalServiceError':
-        print("An error occurred on service side:", e)
-else:
-    if 'SecretString' in get_secret_value_response:
-        secret = get_secret_value_response['SecretString']
-    else:
-        secret = get_secret_value_response['SecretBinary']
-
-"""load TELEGRAM_TOKEN value from Secret Manager"""
-
 TELEGRAM_TOKEN = json.loads(secret)['TELEGRAM_TOKEN']
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -75,6 +51,7 @@ def webhook():
     req = request.get_json()
     bot.handle_message(req['message'])
     return 'Ok'
+
 
 @app.route(f'/results/', methods=['GET'])
 def results():
@@ -101,24 +78,30 @@ def results():
     text_results = f'There {sums} Object in Picture : {ans}\n Thank you!'
     logger.info(f'There {sums} Object in Picture : {ans}\n Thank you!')
     chat_id = bot.chat_id
+
     bot.send_text(chat_id, text_results)
     return 'Ok'
+
 
 @app.route(f'/health', methods=['GET'])
 def liveness():
     return 'Ok'
 
+
 @app.route(f'/ready', methods=['GET'])
 def readiness():
     return 'Ok'
 
+
 def sigterm_handler(signum, frame):
     print("Received SIGTERM, shutting down...")
-    message = "Received SIGTERM, shutting down..."
+    message = "Received SIGTERM, shutting down...Try me next time, THANK YOU!"
     chat_id = bot.chat_id
     logger.info('shutting down...')
-    bot.send_message(chat_id=chat_id, text=message)
+    bot.send_text(chat_id, message)
     exit(0)
+
+    
 signal.signal(signal.SIGTERM, sigterm_handler)
 
 
