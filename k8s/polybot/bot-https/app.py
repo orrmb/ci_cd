@@ -25,6 +25,7 @@ s3.download_file(BUCKET_NAME, 'certificate/YOURPRIVATE-dev.key', './certificate/
 WEBHOOK_SSL_CERT = './certificate/YOURPUBLIC-dev.pem'
 WEBHOOK_SSL_PRIV = './certificate/YOURPRIVATE-dev.key'
 
+
 secret_name = "dev/bot/token"
 region_name = "us-west-2"
 
